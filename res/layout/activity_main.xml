@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    
+    <com.lefukj.health.view.NoScrollViewPager
+        android:id="@+id/mpager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#FFFFFF"
+        ></com.lefukj.health.view.NoScrollViewPager>
+
+        <RadioGroup
+        android:id="@+id/rg_content_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#00FF00"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/rb_content_fragment_home"
+            style="@style/botton_tag_style"
+            android:drawableTop="@drawable/bottom_tag_home_bg"
+            android:text="首页" />
+
+       <RadioButton
+            android:id="@+id/rb_content_fragment_setting"
+            style="@style/botton_tag_style"
+            android:drawableTop="@drawable/bottom_tag_home_bg"
+            android:text="设置" />
+       <RadioButton
+            android:id="@+id/rb_content_fragment_map"
+            style="@style/botton_tag_style"
+            android:drawableTop="@drawable/bottom_tag_home_bg"
+            android:text="地图" />
+    </RadioGroup>
+    
+</RelativeLayout>

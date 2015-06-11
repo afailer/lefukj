@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+   
+    >
+	<ScrollView
+	    android:layout_width="match_parent"
+	   android:layout_height="wrap_content"
+	   android:layout_marginBottom="40dp"
+	     >
+	     <LinearLayout 
+	         android:layout_width="match_parent"
+	         android:layout_height="wrap_content"
+	         
+	         android:orientation="vertical"
+	         >
+    <Button 
+  	  android:id="@+id/refresh"
+  	  android:layout_width="match_parent"
+  	  android:layout_height="wrap_content"
+   	  android:text="refresh!"
+    
+    />
+     
+     <com.github.mikephil.charting.charts.LineChart
+	    android:id="@+id/view_lineChart"
+	    android:layout_width="match_parent"
+	    android:layout_height="320dp"
+	    android:layout_centerInParent="true"
+	    >
+	</com.github.mikephil.charting.charts.LineChart>
+	
+     <com.github.mikephil.charting.charts.BarChart
+         android:id="@+id/view_barChart"
+         android:layout_width="match_parent"
+         android:layout_height="320dp"
+         android:layout_marginBottom="20dp"
+         ></com.github.mikephil.charting.charts.BarChart>
+	<com.github.mikephil.charting.charts.PieChart
+	    android:id="@+id/view_pieChart"
+	    android:layout_width="match_parent"
+	    android:layout_height="320dp"
+	    android:layout_marginBottom="20dp"
+	    ></com.github.mikephil.charting.charts.PieChart>
+     <com.github.mikephil.charting.charts.BarChart
+         android:id="@+id/view_barCharts"
+         android:layout_width="match_parent"
+         android:layout_height="320dp"
+         android:layout_marginBottom="20dp"
+         ></com.github.mikephil.charting.charts.BarChart>
+	</LinearLayout>
+    </ScrollView>
+</LinearLayout>

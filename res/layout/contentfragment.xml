@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+     >
+
+        <RadioGroup
+        android:id="@+id/rg_content_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/rb_content_fragment_home"
+            style="@style/botton_tag_style"
+            android:drawableTop="@drawable/bottom_tag_home_bg"
+            android:text="首页" />
+
+       
+    </RadioGroup>
+    
+</RelativeLayout>
