@@ -18,8 +18,11 @@ import com.lefukj.health.api.APIClient;
 import com.lefukj.health.bean.UpdateInfo;
 import com.lefukj.health.util.Constant;
 import com.lefukj.health.util.LfkjUtils;
+import com.lidroid.xutils.HttpUtils;
 
 public class WelcomeActivity extends Activity {
+	File apkFile;
+	HttpUtils httpUtils;
 	Constant constant;
 	Bitmap welcomeImg;
 	ImageView img;
@@ -30,11 +33,15 @@ public class WelcomeActivity extends Activity {
 	public static final int REQUEST_UDPATE_SUCCESS = 2; // 代表请求更新信息成功
 	protected static final int DOWNLOAD_APK_ERROR = 3; //代表下载最新版本APK出错
 	protected static final int DOWNLOAD_APK_SUCCESS = 4;//代表下载最新版本APK成功
+	protected static final int TO_MAIN=5;
 	private Handler handler = new Handler() {
 		//private File apkFile;
 
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
+			case TO_MAIN:
+				toMain();
+				break;
 			case REQUEST_UPDATE_ERROR:
 				LfkjUtils.showMsg(WelcomeActivity.this, "请求最新apk网络异常!");
 				toMain();
@@ -68,9 +75,11 @@ public class WelcomeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		SDKInitializer.initialize(getApplicationContext()); 
 		setContentView(R.layout.activity_welcome);
-		
+		handler.sendEmptyMessageDelayed(5, 2000);
+		//init();
 		constant=new Constant(getApplicationContext());
-		init();
+		//init();
+		
 	}
 	private void showDowloadDialog() {
 		new AlertDialog.Builder(this).setTitle("版本更新").setMessage(updateInfo.getDesc())
@@ -92,7 +101,6 @@ public class WelcomeActivity extends Activity {
 	
 	private void init() {
 		// TODO Auto-generated method stub
-		handler.sendEmptyMessageDelayed(1, 3000);
 		showAnimation();
 		checkUpdate();
 	}
@@ -106,23 +114,17 @@ public class WelcomeActivity extends Activity {
 			return;
 		}
 		// 联网了, 开启分线程获取服务器端的最新版本信息数据
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					updateInfo = com.lefukj.health.api.APIClient.getUpdateInfo();
-					//handler.sendEmptyMessage(REQUEST_UDPATE_SUCCESS);
-				} catch (Exception e) {
-					e.printStackTrace();
-					//handler.sendEmptyMessage(REQUEST_UPDATE_ERROR);
-				}
-			}
-		}).start();
+		try {
+			updateInfo =APIClient.getUpdateInfo();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	private void toMain(){
-		
+		startActivity(new Intent(getApplicationContext(), GuideActivity.class));
+		finish();
 	}
-	private File apkFile;
 	/**
 	 * 开始下载apk(开启分线程)
 	 */
@@ -162,7 +164,7 @@ public class WelcomeActivity extends Activity {
 			file = new File(dir, "lefukj.apk");
 		} else {
 			File dir = getFilesDir();
-			file = new File(dir, "lefukj.apks");
+			file = new File(dir, "lefukj.apk");
 		}
 		return file;
 	}

@@ -12,6 +12,9 @@ import org.json.JSONObject;
 import android.app.ProgressDialog;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.lefukj.health.R;
+import com.lefukj.health.bean.LoginResult;
 import com.lefukj.health.bean.UpdateInfo;
 import com.lefukj.health.util.Constant;
 import com.lefukj.health.util.LfkjUtils;
@@ -23,7 +26,8 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
 public class APIClient {
-	
+	static HttpUtils httpUtils=new HttpUtils();
+	static UpdateInfo version = null;
 	/**
 	 * 得到最新版本的相关信息对象
 	 * 
@@ -32,37 +36,30 @@ public class APIClient {
 	 * @throws Exception
 	 */
 	public static UpdateInfo getUpdateInfo() throws Exception {
-
+		
 		// URL url = new URL(Constant.URL_CHECK_APK_UPDATE_XML);
-		URL url = new URL(Constant.URL_CHECK_APK_UPDATE_JSON);
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		connection.setDoInput(true);
-		connection.setConnectTimeout(5000);
-		InputStream is = connection.getInputStream();
-		// UpdateInfo info = parseXmlToInfo(is);
-		UpdateInfo info = parseJsonToInfo(is);
-		is.close();
-		connection.disconnect();
+		httpUtils.send(HttpMethod.GET, Constant.URL_CHECK_APK_UPDATE_JSON, new RequestCallBack<String>() {
 
-		return info;
+			@Override
+			public void onSuccess(ResponseInfo<String> responseInfo) {
+				// TODO Auto-generated method stub
+				String versionInfo = responseInfo.result;
+				Gson gson=new Gson();
+				version = gson.fromJson(versionInfo, UpdateInfo.class);
+			}
+
+			@Override
+			public void onFailure(HttpException error, String msg) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		return version;
 	}
 
-	/**
-	 * 解析Json数据注封装为inof对象
-	 * 
-	 * @param is
-	 * @return
-	 * @throws Exception
-	 */
-	private static UpdateInfo parseJsonToInfo(InputStream is) throws Exception {
-		String jsonString = LfkjUtils.readString(is);
-		JSONObject jsonObject = new JSONObject(jsonString);
-		String version = jsonObject.getString("version");
-		String apkUrl = jsonObject.getString("apkUrl");
-		String desc = jsonObject.getString("desc");
-		return new UpdateInfo(version, apkUrl, desc);
-	}
+	
 	public static void downloadFile(String apkUrl, File file, ProgressDialog pd) throws Exception {
+		
 		Log.i("TAG", "apkUrl=" + apkUrl);
 		URL url = new URL(apkUrl);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -90,29 +87,22 @@ public class APIClient {
 		pd.dismiss();
 		connection.disconnect();
 	}
-	
-	HttpUtils httpUtils=new HttpUtils();
-	public void sendUtils(String url,RequestParams params){
-		httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
-			
-			@Override
-			public void onStart() {
-				// TODO Auto-generated method stub
-				super.onStart();
-				
-			}
-			
-			@Override
-			public void onLoading(long total, long current, boolean isUploading) {
-				// TODO Auto-generated method stub
-				super.onLoading(total, current, isUploading);
-				
-			}
-			
+	private static String logineInfo;
+	public static void login(String url){
+		
+		httpUtils.send(HttpMethod.GET, url, new RequestCallBack<String>() {
+
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				// TODO Auto-generated method stub
-				
+				String result = responseInfo.result;
+				Gson gson=new Gson();
+				LoginResult res = gson.fromJson(result, LoginResult.class);
+				if(res.getRole().equals("error")){
+					logineInfo="error";
+				}else{
+					logineInfo=res.getRole();
+				}
 			}
 
 			@Override
@@ -122,4 +112,6 @@ public class APIClient {
 			}
 		});
 	}
+
 }
+

@@ -1,10 +1,7 @@
 package com.lefukj.health.fragment;
 
-import java.util.Currency;
-
 import android.util.Log;
 import android.view.View;
-
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -16,8 +13,6 @@ import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.MyLocationConfiguration;
-import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
@@ -29,25 +24,32 @@ import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.lefukj.health.R;
 
-public class LfMapFragment extends BaseFragment{
+public class OldFragment extends BaseFragment{
 
-	MapView mMapView;
-	View view;
+	/*MapView mMapView;
+	
 	BaiduMap mBaiduMap;
 	PoiSearch mpoiSearch;
 	String TAG="tag";
 	LocationClient mLocationClient;
-	MyLocationListener mLocationListener;
-	boolean isFirstIn=true;
+	//MyLocationListener mLocationListener;
+	boolean isFirstIn=true;*/
+	View view;
+	@Override
+	public void onDestroyView() {
+		// TODO Auto-generated method stub
+		super.onDestroyView();
+		//mMapView.onDestroy();
+	}
 	@Override
 	public View initView() {
 		// TODO Auto-generated method stub
 		view= View.inflate(getActivity(), R.layout.baidumap, null);
-		initMap();
-		initNavi();
+		//initMap();
+		//initNavi();
 		return view;
 	}
-	private void initNavi(){
+	/*private void initNavi(){
 		boolean mIsEngineInitSuccess=false;
 		
 	}
@@ -100,7 +102,7 @@ public class LfMapFragment extends BaseFragment{
 			//MyLocationConfiguration config=new MyLocationConfiguration(LocationMode.NORMAL, false, BitmapDescriptorFactory.fromResource(R.drawable.icon_geo));
 			Log.e("TAG", location.getLatitude()+" "+location.getLongitude());
 			mBaiduMap.setMyLocationData(data);
-			addOverLay(latLng);
+			//addOverLay(latLng);
 			mMapView.refreshDrawableState();
 		}
 		
@@ -141,7 +143,7 @@ public class LfMapFragment extends BaseFragment{
 		mpoiSearch.destroy();
 	}
 
-/*	private void myLocationSerarch(){
+	private void myLocationSerarch(){
 		// 开启定位图层  
 		mBaiduMap.setMyLocationEnabled(true);  
 		// 构造定位数据  

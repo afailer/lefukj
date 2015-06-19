@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.github.mikephil.charting.data.BarData;
@@ -20,6 +23,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.lefukj.health.R;
+import com.lefukj.health.ui.MapClientActivity;
 import com.lefukj.health.view.BarChartItem;
 import com.lefukj.health.view.ChartItem;
 import com.lefukj.health.view.LineChartItem;
@@ -34,10 +38,20 @@ public class GuideFragment extends BaseFragment{
 	BudgetChart budget=new BudgetChart();
 	HorizontalScrollView hsv;*/
 	ListView lv;
+	Button btn;
 	@Override
 	public View initView() {
 		// TODO Auto-generated method stub
 		View view=View.inflate(getActivity(), R.layout.firstfragment, null);
+		btn=(Button) view.findViewById(R.id.btn);
+		btn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				startActivity(new Intent(getActivity(), MapClientActivity.class));
+			}
+		});
 		lv=(ListView) view.findViewById(R.id.lv);
 		ArrayList<ChartItem> list = new ArrayList<ChartItem>();
 		for (int i = 0; i < 30; i++) {

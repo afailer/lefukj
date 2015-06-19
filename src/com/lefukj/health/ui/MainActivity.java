@@ -17,16 +17,19 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.lefukj.health.R;
+import com.lefukj.health.fragment.BlankFragment;
 import com.lefukj.health.fragment.GuideFragment;
-import com.lefukj.health.fragment.LfMapFragment;
+import com.lefukj.health.fragment.OldFragment;
+import com.lefukj.health.fragment.MeFragment;
 import com.lefukj.health.fragment.SettingFragment;
 
 public class MainActivity extends FragmentActivity {
 
-	ViewPager pager;
+	public ViewPager pager;
 	ArrayList<Fragment> fmList=new ArrayList<>();
 	RadioGroup radioGroup;
 	String TAG="tag";
+	public MyPagerAdapter adapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,11 +40,14 @@ public class MainActivity extends FragmentActivity {
 
 	private void init() {
 		// TODO Auto-generated method stub
+		adapter=new MyPagerAdapter(getSupportFragmentManager());
 		pager=(ViewPager) findViewById(R.id.mpager);
 		fmList.add(new GuideFragment());
 		fmList.add(new SettingFragment());
-		fmList.add(new LfMapFragment());
-		pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+		fmList.add(new OldFragment());
+		fmList.add(new MeFragment());
+		fmList.add(new BlankFragment());
+		pager.setAdapter(adapter);
 		radioGroup=(RadioGroup) findViewById(R.id.rg_content_fragment);
 		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
@@ -60,6 +66,10 @@ public class MainActivity extends FragmentActivity {
 					break;
 				case R.id.rb_content_fragment_map:
 					pager.setCurrentItem(2, false);
+					break;
+				case R.id.rb_content_fragment_me:
+					pager.setCurrentItem(3,false);
+					break;
 				default:
 					break;
 				}
@@ -68,35 +78,17 @@ public class MainActivity extends FragmentActivity {
 		RadioButton btn_first=(RadioButton) findViewById(R.id.rb_content_fragment_home);
 		RadioButton btn_setting=(RadioButton) findViewById(R.id.rb_content_fragment_setting);
 		RadioButton btn_map=(RadioButton) findViewById(R.id.rb_content_fragment_map);
+		RadioButton btn_me=(RadioButton) findViewById(R.id.rb_content_fragment_me);
 		btn_first.setChecked(true);
 		final ArrayList<RadioButton> btns=new ArrayList<>();
 		btns.add(btn_first);
 		btns.add(btn_setting);
 		btns.add(btn_map);
-		pager.setOnPageChangeListener(new OnPageChangeListener() {
-			
-			@Override
-			public void onPageSelected(int position) {
-				// TODO Auto-generated method stub
-				btns.get(position).setChecked(true);
-			}
-			
-			@Override
-			public void onPageScrolled(int position, float positionOffset,
-					int positionOffsetPixels) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onPageScrollStateChanged(int state) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		btns.add(btn_me);
+		
 	}
 		
-	class MyPagerAdapter extends FragmentPagerAdapter{
+	public class MyPagerAdapter extends FragmentPagerAdapter{
 
 		public MyPagerAdapter(FragmentManager fm) {
 			super(fm);

@@ -27,12 +27,17 @@
             android:id="@+id/rb_content_fragment_setting"
             style="@style/botton_tag_style"
             android:drawableTop="@drawable/bottom_tag_home_bg"
-            android:text="设置" />
+            android:text="养老院" />
        <RadioButton
             android:id="@+id/rb_content_fragment_map"
             style="@style/botton_tag_style"
             android:drawableTop="@drawable/bottom_tag_home_bg"
-            android:text="地图" />
+            android:text="老人" />
+       <RadioButton
+            android:id="@+id/rb_content_fragment_me"
+            style="@style/botton_tag_style"
+            android:drawableTop="@drawable/bottom_tag_home_bg"
+            android:text="我" />
     </RadioGroup>
     
 </RelativeLayout>

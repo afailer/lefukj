@@ -15,6 +15,7 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 
 public class Constant {
+	public static String[] USER_ROLE={"hs","zyz","ys","zf","js"};
 	public static String UPDATE_URL="";
 	public static String WELCOME_IMG_URL="";
 	public static String WELCOMEPNG="welcome.png";

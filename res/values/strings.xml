@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">lefukj</string>
+    <string name="app_name">北京乐福</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_map_client">MapClientActivity</string>
+    <string name="blood_pressure">请输入血压值</string>
+    <string name="body_tempurature">请输入体温值</string>
+    <string name="blood_sugars">请输入血糖值</string>
+    <string name="user_name">用户名</string>
+    <string name="user_password">密码</string>
+    <string name="login">一键登录</string>
+    <string name="signIn">注册为志愿者</string>
+    <string name="login_error">用户名或密码错误</string>
+    <string name="check">请求验证中...</string>
+    <string name="title_activity_guide">GuideActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>

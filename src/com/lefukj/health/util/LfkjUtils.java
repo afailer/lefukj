@@ -18,6 +18,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class LfkjUtils {
@@ -77,5 +78,13 @@ public class LfkjUtils {
 		bos.close();
 
 		return bos.toString();
+	}
+	public static boolean IsEmpty(EditText edi){
+		String trim = edi.getText().toString().trim();
+		if(trim.equals("")||trim.equals(null)){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }

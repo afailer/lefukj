@@ -1,5 +1,10 @@
 package com.lefukj.health.ui;
 
+import com.baidu.mapapi.search.route.DrivingRouteResult;
+import com.baidu.mapapi.search.route.OnGetRoutePlanResultListener;
+import com.baidu.mapapi.search.route.RoutePlanSearch;
+import com.baidu.mapapi.search.route.TransitRouteResult;
+import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.lefukj.health.R;
 import com.lefukj.health.R.id;
 import com.lefukj.health.R.layout;
@@ -9,31 +14,42 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.PopupWindow;
 
-public class MapClientActivity extends Activity {
+public class MapClientActivity extends Activity implements OnGetRoutePlanResultListener {
 
+	
+	RoutePlanSearch mSearch;
+	PopupWindow pw;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map_client);
+		mSearch=RoutePlanSearch.newInstance();
+		mSearch.setOnGetRoutePlanResultListener(this);
+		pw=new PopupWindow(getLayoutInflater().inflate(R.layout.popwindow, null), LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
+		pw.setOutsideTouchable(true);
+		pw.showAsDropDown(findViewById(R.id.et), 0, 0);
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.map_client, menu);
-		return true;
+	public void onGetDrivingRouteResult(DrivingRouteResult res) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+	public void onGetTransitRouteResult(TransitRouteResult arg0) {
+		// TODO Auto-generated method stub
+		
 	}
+
+	@Override
+	public void onGetWalkingRouteResult(WalkingRouteResult arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }
